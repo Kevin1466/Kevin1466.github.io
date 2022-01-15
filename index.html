@@ -157,7 +157,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/01/14/day01-%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/01/15/day01-%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="http://5b0988e595225.cdn.sohucs.com/images/20170910/8a41afca90814e4eb3e361c0cd7765ad.jpeg">
@@ -171,7 +171,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2022/01/14/day01-%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/" class="post-title-link" itemprop="url">day01-特征工程</a>
+            <a href="/2022/01/15/day01-%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/" class="post-title-link" itemprop="url">Day01-机器学习一些基本概念</a>
         </h1>
 
         <div class="post-meta">
@@ -180,16 +180,10 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2022-01-14 19:40:09" itemprop="dateCreated datePublished" datetime="2022-01-14T19:40:09+08:00">2022-01-14</time>
+              <time title="Created: 2022-01-15 18:26:30 / Modified: 18:45:34" itemprop="dateCreated datePublished" datetime="2022-01-15T18:26:30+08:00">2022-01-15</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-15 17:38:21" itemprop="dateModified" datetime="2022-01-15T17:38:21+08:00">2022-01-15</time>
-              </span>
 
           
 
@@ -202,8 +196,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <ol>
-<li><p>简述机器学习项目的一般流程</p>
+          <p><strong>一、简述机器学习项目的一般流程</strong></p>
 <ol>
 <li><p>定义问题并看整体</p>
 <ul>
@@ -298,14 +291,11 @@
 <ul>
 <li>当心缓慢的退化：随着数据的发展，模型往往会”腐烂“</li>
 <li>评估性能可能需要人工流水线（例如众包服务）</li>
-<li>监视你的输入的质量，这对于在线学习系统尤其重要<br>3. 定期根据新数据重新训练模型（自动化）</li>
+<li>监视你的输入的质量，这对于在线学习系统尤其重要<br>3. 定期根据新数据重新训练模型（自动化）哪些机器学习算法需要做特征归一化，哪些不需要？为什么？</li>
 </ul>
 </li>
 </ol>
-</li>
-<li><p>哪些机器学习算法需要做特征归一化，哪些不需要？为什么？</p>
-<ol>
-<li><p>什么是特征归一化</p>
+<p><strong>二、 什么是特征归一化</strong></p>
 <p>好的特征不仅能够表示出数据的主要特点，还应该符合模型的假设，因此通常必须进行数据转换。数据转换有：<strong>对数变换</strong>（指数变化的一种特殊形式），特征缩放/归一化/标准化；</p>
 <p>术语辨析：特征缩放，特征归一化，特征标准化</p>
 <ul>
@@ -328,10 +318,6 @@ X_{norm} = \frac{x-min(x)}{max(x) - min(x)}</script><p>为了便于记忆，可�
 <hr>
 </li>
 </ul>
-</li>
-</ol>
-</li>
-</ol>
 <ol>
 <li><p>为什么要做归一化</p>
 <ul>
@@ -339,18 +325,48 @@ X_{norm} = \frac{x-min(x)}{max(x) - min(x)}</script><p>为了便于记忆，可�
 <li>正规化帮助我们转化不同比例上的数据，消除特殊特征的主导，但是不能很好地处理异常值；相反，标准化可以更好地处理异常值，以及加速<strong>梯度下降</strong>算法的收敛；</li>
 </ul>
 </li>
-<li><p>什么算法需要特征缩放（feature scaling）</p>
-<p>| Algorithm        | Reason of applying feature scaling                           |<br>| ———————— | —————————————————————————————— |<br>| K-means          | 使用欧式距离                                                 |<br>| KNN              | 测量样本对的距离，这些距离受测量单位的影响                   |<br>| PCA              | 试着用最大偏差（variance）得到特征                           |<br>| ANN              | 应用梯度下降                                                 |<br>| Gradient Descent | Theta calculation becomes faster after feature scaling and the learning rate in the update equation of Stochasic Gradient Descent is the same for every parameter |</p>
-</li>
-<li><p>哪些算法不需要特征缩放？</p>
+<li>什么算法需要特征缩放（feature scaling）</li>
+</ol>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Algorithm</th>
+<th>Reason of applying feature scaling</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>K-means</td>
+<td>使用欧式距离</td>
+</tr>
+<tr>
+<td>KNN</td>
+<td>测量样本对的距离，这些距离受测量单位的影响</td>
+</tr>
+<tr>
+<td>PCA</td>
+<td>试着用最大偏差（variance）得到特征</td>
+</tr>
+<tr>
+<td>ANN</td>
+<td>应用梯度下降</td>
+</tr>
+<tr>
+<td>Gradient Descent</td>
+<td>Theta calculation becomes faster after feature scaling and the learning rate in the update equation of Stochasic Gradient Descent is the same for every parameter</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ol>
+<li>哪些算法不需要特征缩放？</li>
+</ol>
 <ul>
 <li>如果算法不是基于距离计算，feature scaling则不需要</li>
 <li>比如朴素贝叶斯、线性判别分析、树模型（梯度提升、随机森林）</li>
 </ul>
-</li>
-</ol>
-<ol>
-<li><p>One-hot的作用是什么？为什么不直接使用数字作为表示</p>
+<p><strong>三、One-hot的作用是什么？为什么不直接使用数字作为表示</strong></p>
 <p>One-hot是一种分类变量的编码方法，作用就是将非数值型的类别转换为数值。通常类别编码方法有</p>
 <ul>
 <li><p>one-hot encoding</p>
@@ -366,11 +382,8 @@ X_{norm} = \frac{x-min(x)}{max(x) - min(x)}</script><p>为了便于记忆，可�
 <p>one-hot编码有冗余，这会使得同一个问题有多个有效模型，这种非唯一性有时候难以解释；后两种没有冗余，而且可以生成唯一的可解释的模型，dummy coding不太容易处理缺失数据，因为全0向量已经映射为参照类了；effect coding用全-1表示参照类，所以计算和存储的成本比较高；</p>
 </li>
 </ul>
-</li>
-</ol>
 <p>​        也是可以直接用整数来表示分类类别的。</p>
-<ol>
-<li><p>什么是数据不平衡，如何解决？</p>
+<p><strong>四、什么是数据不平衡，如何解决？</strong></p>
 <ul>
 <li><p>数据不平衡就是属于某一类别的观测样本的数量显著少于其他类别。当面临不平衡数据集的时候，机器学习算法倾向于产生不太令人满意的分类器。</p>
 </li>
@@ -405,8 +418,7 @@ X_{norm} = \frac{x-min(x)}{max(x) - min(x)}</script><p>为了便于记忆，可�
 </li>
 </ul>
 <p><a href="https://www.jiqizhixin.com/articles/2017-03-20-8" target="_blank" rel="noopener">https://www.jiqizhixin.com/articles/2017-03-20-8</a></p>
-</li>
-<li><p>请比较欧式距离与曼哈顿距离</p>
+<p><strong>五、请比较欧式距离与曼哈顿距离</strong></p>
 <ol>
 <li><p>欧式距离</p>
 <script type="math/tex; mode=display">
@@ -415,10 +427,6 @@ D_{12} = \sqrt{\sum_{k=1}^{n}({x_{1k} - x_{2k}})^2}</script><font size=2>n表示
 <li><p>曼哈顿距离</p>
 <script type="math/tex; mode=display">
 D_{12}=\sum_{k=1}^n{|x_{1k}-x{2k}|}</script></li>
-</ol>
-</li>
-</ol>
-<ol>
 <li><p>切比雪夫距离</p>
 <p>国际象棋，国王走棋</p>
 <script type="math/tex; mode=display">
@@ -436,8 +444,8 @@ D_{12}=\sqrt[p]{\sum_{k=1}^n|x_{1k}-x_{2k}|^p}</script><p>p = 1，曼哈顿；p 
 X^* = \frac{X-m}{s}</script><script type="math/tex; mode=display">
 D_{12}=\sqrt{\sum_{k=1}^n(\frac{x_{1k}-{x_{2k}}}{s_k})^2}</script></li>
 </ol>
-<pre><code>  将方差的倒数看做权重，标准化欧式距离可看成是一种加权欧式距离。
-</code></pre><ol>
+<p>   将方差的倒数看做权重，标准化欧式距离可看成是一种加权欧式距离。</p>
+<ol>
 <li><p>马氏距离</p>
 <p>有M个样本向量，协方差矩阵记作S，均值记作向量u，则样本向量X到u的马氏距离</p>
 <script type="math/tex; mode=display">
@@ -751,6 +759,53 @@ D_{xy}=1-\rho_{XY}</script></li>
   
 
   
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 
