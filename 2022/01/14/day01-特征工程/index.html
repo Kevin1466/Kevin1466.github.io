@@ -233,7 +233,7 @@
 <li>检查数据的大小和类型（时间序列、样本、地理等）</li>
 <li>抽样一个测试集，放置一遍</li>
 </ul>
-<ol start="3">
+<ol>
 <li><p>研究数据</p>
 <ol>
 <li><p>创建数据副本来进行研究（必要时将其采样到可以管理的大小）</p>
@@ -272,16 +272,14 @@
 <li>删除没有为任务提供有用信息的属性</li>
 </ul>
 </li>
-<li><p>特征工程</p>
-<ul>
+<li>特征工程<ul>
 <li>离散化连续特征</li>
 <li>分解特征</li>
 <li>添加有希望的特征转换</li>
 <li>将特征聚合为有希望的新特征</li>
 </ul>
 </li>
-<li><p>特征缩放</p>
-<ul>
+<li>特征缩放<ul>
 <li>标准化或归一化</li>
 </ul>
 </li>
@@ -314,10 +312,14 @@
 <ul>
 <li><p>特征缩放是使所有特征都在相似的范围内，因此建模时每个特征都变得同等重要，这样便于机器学习算法进行处理；很多机器学习模型（如k-means，knn）都依据欧氏距离，特征缩放可以将全部的数值统一到一个量级上来解决问题，为了达到这个目标，有两种基本的解决方法——标准化和归一化；</p>
 </li>
-<li><p>标准化（Standardization）：中心标准化<br>$$<br>X_{stand} = \frac {x-mean(x)}{standard : deviation(x)}<br>$$<br>这种将特征值域缩放到0~1之间的技巧对于优化算法很有用，例如在回归和神经网络中应用到的“梯度下降”，缩放也适用于基于距离测量的算法，比如KNN；</p>
+<li><p>标准化（Standardization）：中心标准化</p>
+<script type="math/tex; mode=display">
+X_{stand} = \frac {x-mean(x)}{standard \: deviation(x)}</script><p>这种将特征值域缩放到0~1之间的技巧对于优化算法很有用，例如在回归和神经网络中应用到的“梯度下降”，缩放也适用于基于距离测量的算法，比如KNN；</p>
 <p>为了便于记忆，可以结合其英文名记作”标准化“；</p>
 </li>
-<li><p>归一化（Max-Min Normalization）：离差标准化<br>$$<br>X_{norm} = \frac{x-min(x)}{max(x) - min(x)}<br>$$<br>为了便于记忆，可以结合其英文名记作”正规化“</p>
+<li><p>归一化（Max-Min Normalization）：离差标准化</p>
+<script type="math/tex; mode=display">
+X_{norm} = \frac{x-min(x)}{max(x) - min(x)}</script><p>为了便于记忆，可以结合其英文名记作”正规化“</p>
 </li>
 <li><p>对比。如果特征列中含有异常值（outlier），正规化只能将所有特征统一比例，并不能很好地解决异常值问题，而标准化在异常值方面有更好的表现，因此应用范围更广；</p>
 </li>
@@ -331,7 +333,7 @@
 </ol>
 </li>
 </ol>
-<ol start="2">
+<ol>
 <li><p>为什么要做归一化</p>
 <ul>
 <li>因为基于距离矩阵的机器学习模型（被称为“距离分类器”），如KNN, SVM, ANN，特征缩放对于这些模型非常重要，特征缩放减少了大值域变量对计算距离的影响；</li>
@@ -339,34 +341,7 @@
 </ul>
 </li>
 <li><p>什么算法需要特征缩放（feature scaling）</p>
-<table>
-<thead>
-<tr>
-<th>Algorithm</th>
-<th>Reason of applying feature scaling</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>K-means</td>
-<td>使用欧式距离</td>
-</tr>
-<tr>
-<td>KNN</td>
-<td>测量样本对的距离，这些距离受测量单位的影响</td>
-</tr>
-<tr>
-<td>PCA</td>
-<td>试着用最大偏差（variance）得到特征</td>
-</tr>
-<tr>
-<td>ANN</td>
-<td>应用梯度下降</td>
-</tr>
-<tr>
-<td>Gradient Descent</td>
-<td>Theta calculation becomes faster after feature scaling and the learning rate in the update equation of Stochasic Gradient Descent is the same for every parameter</td>
-</tr>
-</tbody></table>
+<p>| Algorithm        | Reason of applying feature scaling                           |<br>| ———————— | —————————————————————————————— |<br>| K-means          | 使用欧式距离                                                 |<br>| KNN              | 测量样本对的距离，这些距离受测量单位的影响                   |<br>| PCA              | 试着用最大偏差（variance）得到特征                           |<br>| ANN              | 应用梯度下降                                                 |<br>| Gradient Descent | Theta calculation becomes faster after feature scaling and the learning rate in the update equation of Stochasic Gradient Descent is the same for every parameter |</p>
 </li>
 <li><p>哪些算法不需要特征缩放？</p>
 <ul>
@@ -375,7 +350,7 @@
 </ul>
 </li>
 </ol>
-<ol start="2">
+<ol>
 <li><p>One-hot的作用是什么？为什么不直接使用数字作为表示</p>
 <p>One-hot是一种分类变量的编码方法，作用就是将非数值型的类别转换为数值。通常类别编码方法有</p>
 <ul>
@@ -395,7 +370,7 @@
 </li>
 </ol>
 <p>​        也是可以直接用整数来表示分类类别的。</p>
-<ol start="3">
+<ol>
 <li><p>什么是数据不平衡，如何解决？</p>
 <ul>
 <li><p>数据不平衡就是属于某一类别的观测样本的数量显著少于其他类别。当面临不平衡数据集的时候，机器学习算法倾向于产生不太令人满意的分类器。</p>
@@ -434,36 +409,56 @@
 </li>
 <li><p>请比较欧式距离与曼哈顿距离</p>
 <ol>
-<li><p>欧式距离<br>$$<br>D_{12} = \sqrt{\sum_{k=1}^{n}({x_{1k} - x_{2k}})^2}<br>$$<br><font size=2>n表示向量空间维度</font></p>
+<li><p>欧式距离</p>
+<script type="math/tex; mode=display">
+D_{12} = \sqrt{\sum_{k=1}^{n}({x_{1k} - x_{2k}})^2}</script><font size=2>n表示向量空间维度</font>
 </li>
-<li><p>曼哈顿距离<br>$$<br>D_{12}=\sum_{k=1}^n{|x_{1k}-x{2k}|}<br>$$</p>
-</li>
+<li><p>曼哈顿距离</p>
+<script type="math/tex; mode=display">
+D_{12}=\sum_{k=1}^n{|x_{1k}-x{2k}|}</script></li>
 </ol>
 </li>
 </ol>
-<ol start="3">
+<ol>
 <li><p>切比雪夫距离</p>
-<p>国际象棋，国王走棋<br>$$<br>D_{12} = max(|x_{1i}-x_{2i}|)<br>$$<br>或者，<br>$$<br>D_{12}=\lim(\sum_{i=1}^n|x_{1i}-x_{2i}|^k)^{\frac{1}{k}}<br>$$</p>
-</li>
-<li><p>闵可夫斯基距离<br>$$<br>D_{12}=\sqrt[p]{\sum_{k=1}^n|x_{1k}-x_{2k}|^p}<br>$$<br>p = 1，曼哈顿；p = 2，欧式；p = 3，切比雪夫。</p>
+<p>国际象棋，国王走棋</p>
+<script type="math/tex; mode=display">
+D_{12} = max(|x_{1i}-x_{2i}|)</script><p>或者，</p>
+<script type="math/tex; mode=display">
+D_{12}=\lim(\sum_{i=1}^n|x_{1i}-x_{2i}|^k)^{\frac{1}{k}}</script></li>
+<li><p>闵可夫斯基距离</p>
+<script type="math/tex; mode=display">
+D_{12}=\sqrt[p]{\sum_{k=1}^n|x_{1k}-x_{2k}|^p}</script><p>p = 1，曼哈顿；p = 2，欧式；p = 3，切比雪夫。</p>
 <p>缺点：1. 将各个分量的量纲同等看待；2. 没有考虑各个分量的分布（期望、方差）可能是不同的。</p>
 </li>
 <li><p>标准化欧式距离</p>
-<p>针对简单欧式距离的缺点而改进的。<br>$$<br>X^* = \frac{X-m}{s}<br>$$</p>
-<p>$$<br>D_{12}=\sqrt{\sum_{k=1}^n(\frac{x_{1k}-{x_{2k}}}{s_k})^2}<br>$$</p>
-</li>
+<p>针对简单欧式距离的缺点而改进的。</p>
+<script type="math/tex; mode=display">
+X^* = \frac{X-m}{s}</script><script type="math/tex; mode=display">
+D_{12}=\sqrt{\sum_{k=1}^n(\frac{x_{1k}-{x_{2k}}}{s_k})^2}</script></li>
 </ol>
-<pre><code>将方差的倒数看做权重，标准化欧式距离可看成是一种加权欧式距离。</code></pre><ol start="6">
+<pre><code>  将方差的倒数看做权重，标准化欧式距离可看成是一种加权欧式距离。
+</code></pre><ol>
 <li><p>马氏距离</p>
-<p>有M个样本向量，协方差矩阵记作S，均值记作向量u，则样本向量X到u的马氏距离<br>$$<br>D(X)=\sqrt{(X-u)^TS^{-1}{(X-u)}}<br>$$<br>向量Xi和Xj的马氏距离<br>$$<br>D(X_i, X_j)=\sqrt{(X_i-X_j)^TS^{-1}(X_i-X_j)}{}<br>$$<br>若协方差矩阵是单位矩阵，则公式为<br>$$<br>D(X_i, X_j)=\sqrt{(X_i-X_j)^T{(X_i-X_j)}}<br>$$<br>若协方差矩阵是对角矩阵，公式变成了标准的欧氏距离。</p>
+<p>有M个样本向量，协方差矩阵记作S，均值记作向量u，则样本向量X到u的马氏距离</p>
+<script type="math/tex; mode=display">
+D(X)=\sqrt{(X-u)^TS^{-1}{(X-u)}}</script><p>向量Xi和Xj的马氏距离</p>
+<script type="math/tex; mode=display">
+D(X_i, X_j)=\sqrt{(X_i-X_j)^TS^{-1}(X_i-X_j)}{}</script><p>若协方差矩阵是单位矩阵，则公式为</p>
+<script type="math/tex; mode=display">
+D(X_i, X_j)=\sqrt{(X_i-X_j)^T{(X_i-X_j)}}</script><p>若协方差矩阵是对角矩阵，公式变成了标准的欧氏距离。</p>
 </li>
-<li><p>夹角余弦<br>$$<br>cos(\theta)=\frac{a{\cdot}b}{|a||b|}<br>$$</p>
-</li>
+<li><p>夹角余弦</p>
+<script type="math/tex; mode=display">
+cos(\theta)=\frac{a{\cdot}b}{|a||b|}</script></li>
 <li><p>汉明距离</p>
 <p>两个等长字符串s1与s2之间的汉明距离定义为将其中一个变为另外一个所需要作的最小替换次数。例如字符串“1111”与“1001”之间的汉明距离为2。应用：信息编码（为了增强容错性，应使得编码间的最小汉明距离尽可能大）。</p>
 </li>
-<li><p>相关系数&amp;相关距离<br>$$<br>\rho_{XY}=\frac{Cov(X,Y)}{\sqrt{D(X)}\sqrt{D(Y)}}=\frac{E((X-EX)(Y-EY))}{\sqrt{D(X)}\sqrt{D(Y)}}<br>$$<br>相关距离<br>$$<br>D_{xy}=1-\rho_{XY}<br>$$</p>
-</li>
+<li><p>相关系数&amp;相关距离</p>
+<script type="math/tex; mode=display">
+\rho_{XY}=\frac{Cov(X,Y)}{\sqrt{D(X)}\sqrt{D(Y)}}=\frac{E((X-EX)(Y-EY))}{\sqrt{D(X)}\sqrt{D(Y)}}</script><p>相关距离</p>
+<script type="math/tex; mode=display">
+D_{xy}=1-\rho_{XY}</script></li>
 </ol>
 
     </div>
@@ -642,6 +637,8 @@
 
 
 
+
+  
 
   
 
