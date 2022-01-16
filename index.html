@@ -128,7 +128,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives<span class="badge">3</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives<span class="badge">4</span></a>
 
   </li>
   </ul>
@@ -153,6 +153,181 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/01/16/Day03-%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://5b0988e595225.cdn.sohucs.com/images/20170910/8a41afca90814e4eb3e361c0cd7765ad.jpeg">
+      <meta itemprop="name" content="Kyle">
+      <meta itemprop="description" content="I see my future in your eyes">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kyle's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/01/16/Day03-%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87/" class="post-title-link" itemprop="url">Day03-评价指标</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-01-16 16:17:29 / Modified: 16:15:50" itemprop="dateCreated datePublished" datetime="2022-01-16T16:17:29+08:00">2022-01-16</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>一、什么是精确率？ 什么是召回率？</p>
+<p>在机器学习、数据挖掘、推荐系统完成建模后，需要对模型的效果做评价。分类任务使用的指标：Accuracy, Precision, Recall, F1-Score, ROC Curve, PR Curve, AUC，回归任务使用的指标：MAE，MSE；</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">预</th>
+<th style="text-align:center">测</th>
+<th style="text-align:center">类</th>
+<th style="text-align:center">别</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">实</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">Negative</td>
+<td style="text-align:center">Positive</td>
+<td style="text-align:center">TOTAL</td>
+</tr>
+<tr>
+<td style="text-align:center">际</td>
+<td style="text-align:center">Negative</td>
+<td style="text-align:center">TN</td>
+<td style="text-align:center">FP</td>
+<td style="text-align:center">N</td>
+</tr>
+<tr>
+<td style="text-align:center">类</td>
+<td style="text-align:center">Positive</td>
+<td style="text-align:center">FN</td>
+<td style="text-align:center">TP</td>
+<td style="text-align:center">P</td>
+</tr>
+<tr>
+<td style="text-align:center">别</td>
+<td style="text-align:center">TOTAL</td>
+<td style="text-align:center">N</td>
+<td style="text-align:center">P</td>
+<td style="text-align:center">P+N</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ol>
+<li><p>准确率（Accuracy）</p>
+<script type="math/tex; mode=display">
+ACC=\frac{TP+TN}{TP+TN+FP+FN}</script><p>理解：被分对的样本数除以所有的样本数。</p>
+</li>
+<li><p>错误率（Error rate）</p>
+<script type="math/tex; mode=display">
+Error Rate = \frac{FP+FN}{TP+TN+FP+FN}=1-ACC</script><p>与准确率相反，分对与分错是互斥事件。</p>
+</li>
+<li><p>灵敏度（Sensitive）</p>
+<script type="math/tex; mode=display">
+Sensitive = \frac{TP}{P}</script><p>所有正例中被分对的比例，衡量分类器对正例的识别能力。</p>
+</li>
+<li><p>特效度（Specificity）</p>
+<script type="math/tex; mode=display">
+Specificity=\frac{TN}{N}</script><p>所有负例中被分对的比例，衡量分类器对负例的识别能力。</p>
+</li>
+<li><p>精确率、精度（Precision）</p>
+<script type="math/tex; mode=display">
+Precision=\frac{TP}{TP+FP}</script><p>被分为正例的示例中实际为正的比例。</p>
+</li>
+<li><p>召回率（Recall）</p>
+<script type="math/tex; mode=display">
+Recall=\frac{TP}{TP+FN}=\frac{TP}{P}=sensitive</script><p>召回率是覆盖面的度量，度量有多少正例被分为正例。</p>
+</li>
+<li><p>综合评价指标（F-Measure / F-Score）</p>
+<script type="math/tex; mode=display">
+F=\frac{(a^2+1)P*R}{a^2(P+R)}</script><p>F-measure是precision和recall的加权调和平均；当参数a=1时，就是最常见的F1，</p>
+<script type="math/tex; mode=display">
+F1=\frac{2*P*R}{P+R}</script></li>
+<li><p>其他评价指标</p>
+<ul>
+<li>计算速度：分类器训练和预测需要的时间</li>
+<li>鲁棒性：处理缺失值和异常值的能力</li>
+<li>可扩展性：处理大数据集的能力</li>
+<li>可解释性：分类器预测标准的可理解性（决策树产生的规则就是易理解的，而神经网络的一堆参数就不好理解，因此被人们视为黑盒子）</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li><p>二、什么是ROC曲线？</p>
+</li>
+</ol>
+<p>ROC（Receiver Operating Characteristic）曲线是以真正率（TP_rate）和假正率（FP_rate）为轴的曲线；ROC曲线下面的面积叫做AUC。</p>
+<p><img src="https://img-blog.csdn.net/20170612145321904" alt="这里写图片描述"></p>
+<ol>
+<li>曲线与FP_rate轴围成的面积（AUC）越大，说明性能越好。</li>
+<li>虽然ROC曲线相较于Precision和Recall等衡量指标更加合理，但是其在高不平衡数据条件下的表现仍过于理想，PR曲线可能比ROC更实用。</li>
+</ol>
+<p>三、A/B测试？</p>
+<ol>
+<li><p>什么是A/B测试？</p>
+<p>是验证新模块、新功能、新产品是否有效，新算法、新模型的效果是否有提升，新设计是否受到用户欢迎的主要测试方法。</p>
+</li>
+<li><p>为什么要进行线上A/B测试？</p>
+<ul>
+<li>离线评估无法完全消除模型过拟合的影响，得出的离线评估结果无法完全替代线上评估结果。</li>
+<li>离线评估无法完全还原线上的工程环境。离线评估的结果是理想工程环境下的结果。</li>
+<li>线上系统的某些商业指标在离线评估中无法计算，离线评估一般是针对模型本身进行评估，而与模型相关的其他指标，如商业指标，往往无法直接获得。</li>
+</ul>
+</li>
+<li><p>在A/B测试中如何进行流量分割？</p>
+<ul>
+<li>实验对用户体验感知影响很小，通常可以较大流量测试，如实验组：对照组按1:1的流量分配；</li>
+<li>实验稳定性不高，如新功能的上线，策略变动较大等，先小流量测试，后续依据表现放量；</li>
+<li>依据实验的收益预期来判定：如希望获得很大的收益，在确定较大负面影响下，可以大流量上线；</li>
+</ul>
+</li>
+</ol>
+<p><a href="https://www.6aiq.com/article/1606260721974" target="_blank" rel="noopener">https://www.6aiq.com/article/1606260721974</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/430075273" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/430075273</a></p>
+<p><a href="https://cloud.tencent.com/developer/article/1496302" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1496302</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -320,7 +495,7 @@ J(\theta)=\frac{1}{2m}[\sum_{i=1}^m(h_\theta(x^{(i)}-y^{(i)})^2+\lambda\sum_{j=1
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/01/15/day01-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B51/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/01/15/Day01-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B51/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="http://5b0988e595225.cdn.sohucs.com/images/20170910/8a41afca90814e4eb3e361c0cd7765ad.jpeg">
@@ -334,7 +509,7 @@ J(\theta)=\frac{1}{2m}[\sum_{i=1}^m(h_\theta(x^{(i)}-y^{(i)})^2+\lambda\sum_{j=1
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2022/01/15/day01-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B51/" class="post-title-link" itemprop="url">Day01-机器学习一些基本概念</a>
+            <a href="/2022/01/15/Day01-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B51/" class="post-title-link" itemprop="url">Day01-机器学习一些基本概念</a>
         </h1>
 
         <div class="post-meta">
@@ -841,7 +1016,7 @@ D_{xy}=1-\rho_{XY}</script></li>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">4</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
