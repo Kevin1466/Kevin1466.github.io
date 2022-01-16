@@ -20,21 +20,21 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="一、什么是精确率？ 什么是召回率？ 在机器学习、数据挖掘、推荐系统完成建模后，需要对模型的效果做评价。分类任务使用的指标：Accuracy, Precision, Recall, F1-Score, ROC Curve, PR Curve, AUC，回归任务使用的指标：MAE，MSE；      预 测 类 别     实  Negative Positive TOTAL   际 Negative">
+  <meta name="description" content="一、写出全概率公式&amp;贝叶斯公式  条件概率公式 P(A|B)&#x3D;\frac{P(A,B)}{P(B)}   贝叶斯公式 P(A,B)&#x3D;P(A|B)\cdot P(B)&#x3D;P(B|A)\cdot P(A)由此得到贝叶斯公式的常规形式： P(A|B)&#x3D;\frac{P(B|A)\cdot P(A)}{P(B)}   全概率公式 若事件B1, B2, Bn是样本空间的一个划分，则：  P(A)&#x3D;\su">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Day03-评价指标">
-<meta property="og:url" content="http://yoursite.com/2022/01/16/Day03-%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87/index.html">
+<meta property="og:title" content="Day05-朴素贝叶斯">
+<meta property="og:url" content="http://yoursite.com/2022/01/16/Day05-%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF/index.html">
 <meta property="og:site_name" content="Kyle&#39;s Blog">
-<meta property="og:description" content="一、什么是精确率？ 什么是召回率？ 在机器学习、数据挖掘、推荐系统完成建模后，需要对模型的效果做评价。分类任务使用的指标：Accuracy, Precision, Recall, F1-Score, ROC Curve, PR Curve, AUC，回归任务使用的指标：MAE，MSE；      预 测 类 别     实  Negative Positive TOTAL   际 Negative">
+<meta property="og:description" content="一、写出全概率公式&amp;贝叶斯公式  条件概率公式 P(A|B)&#x3D;\frac{P(A,B)}{P(B)}   贝叶斯公式 P(A,B)&#x3D;P(A|B)\cdot P(B)&#x3D;P(B|A)\cdot P(A)由此得到贝叶斯公式的常规形式： P(A|B)&#x3D;\frac{P(B|A)\cdot P(A)}{P(B)}   全概率公式 若事件B1, B2, Bn是样本空间的一个划分，则：  P(A)&#x3D;\su">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://img-blog.csdn.net/20170612145321904">
-<meta property="article:published_time" content="2022-01-16T08:17:29.491Z">
-<meta property="article:modified_time" content="2022-01-16T08:15:50.657Z">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-0b3f91a02c3da5a2d028d742c96bb6fb_720w.jpg">
+<meta property="article:published_time" content="2022-01-16T10:21:55.988Z">
+<meta property="article:modified_time" content="2022-01-16T10:19:45.360Z">
 <meta property="article:author" content="Kyle">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdn.net/20170612145321904">
+<meta name="twitter:image" content="https://pic4.zhimg.com/80/v2-0b3f91a02c3da5a2d028d742c96bb6fb_720w.jpg">
 
-<link rel="canonical" href="http://yoursite.com/2022/01/16/Day03-%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87/">
+<link rel="canonical" href="http://yoursite.com/2022/01/16/Day05-%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF/">
 
 
 <script id="page-configurations">
@@ -46,7 +46,7 @@
   };
 </script>
 
-  <title>Day03-评价指标 | Kyle's Blog</title>
+  <title>Day05-朴素贝叶斯 | Kyle's Blog</title>
   
 
 
@@ -161,7 +161,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/01/16/Day03-%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/01/16/Day05-%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="http://5b0988e595225.cdn.sohucs.com/images/20170910/8a41afca90814e4eb3e361c0cd7765ad.jpeg">
@@ -174,7 +174,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Day03-评价指标
+          Day05-朴素贝叶斯
         </h1>
 
         <div class="post-meta">
@@ -185,7 +185,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2022-01-16 16:17:29 / Modified: 16:15:50" itemprop="dateCreated datePublished" datetime="2022-01-16T16:17:29+08:00">2022-01-16</time>
+              <time title="Created: 2022-01-16 18:21:55 / Modified: 18:19:45" itemprop="dateCreated datePublished" datetime="2022-01-16T18:21:55+08:00">2022-01-16</time>
             </span>
 
           
@@ -199,123 +199,45 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>一、什么是精确率？ 什么是召回率？</p>
-<p>在机器学习、数据挖掘、推荐系统完成建模后，需要对模型的效果做评价。分类任务使用的指标：Accuracy, Precision, Recall, F1-Score, ROC Curve, PR Curve, AUC，回归任务使用的指标：MAE，MSE；</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:center"></th>
-<th style="text-align:center">预</th>
-<th style="text-align:center">测</th>
-<th style="text-align:center">类</th>
-<th style="text-align:center">别</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">实</td>
-<td style="text-align:center"></td>
-<td style="text-align:center">Negative</td>
-<td style="text-align:center">Positive</td>
-<td style="text-align:center">TOTAL</td>
-</tr>
-<tr>
-<td style="text-align:center">际</td>
-<td style="text-align:center">Negative</td>
-<td style="text-align:center">TN</td>
-<td style="text-align:center">FP</td>
-<td style="text-align:center">N</td>
-</tr>
-<tr>
-<td style="text-align:center">类</td>
-<td style="text-align:center">Positive</td>
-<td style="text-align:center">FN</td>
-<td style="text-align:center">TP</td>
-<td style="text-align:center">P</td>
-</tr>
-<tr>
-<td style="text-align:center">别</td>
-<td style="text-align:center">TOTAL</td>
-<td style="text-align:center">N</td>
-<td style="text-align:center">P</td>
-<td style="text-align:center">P+N</td>
-</tr>
-</tbody>
-</table>
-</div>
+        <p><strong>一、写出全概率公式&amp;贝叶斯公式</strong></p>
 <ol>
-<li><p>准确率（Accuracy）</p>
-<script type="math/tex; mode=display">
-ACC=\frac{TP+TN}{TP+TN+FP+FN}</script><p>理解：被分对的样本数除以所有的样本数。</p>
-</li>
-<li><p>错误率（Error rate）</p>
-<script type="math/tex; mode=display">
-Error Rate = \frac{FP+FN}{TP+TN+FP+FN}=1-ACC</script><p>与准确率相反，分对与分错是互斥事件。</p>
-</li>
-<li><p>灵敏度（Sensitive）</p>
-<script type="math/tex; mode=display">
-Sensitive = \frac{TP}{P}</script><p>所有正例中被分对的比例，衡量分类器对正例的识别能力。</p>
-</li>
-<li><p>特效度（Specificity）</p>
-<script type="math/tex; mode=display">
-Specificity=\frac{TN}{N}</script><p>所有负例中被分对的比例，衡量分类器对负例的识别能力。</p>
-</li>
-<li><p>精确率、精度（Precision）</p>
-<script type="math/tex; mode=display">
-Precision=\frac{TP}{TP+FP}</script><p>被分为正例的示例中实际为正的比例。</p>
-</li>
-<li><p>召回率（Recall）</p>
-<script type="math/tex; mode=display">
-Recall=\frac{TP}{TP+FN}=\frac{TP}{P}=sensitive</script><p>召回率是覆盖面的度量，度量有多少正例被分为正例。</p>
-</li>
-<li><p>综合评价指标（F-Measure / F-Score）</p>
-<script type="math/tex; mode=display">
-F=\frac{(a^2+1)P*R}{a^2(P+R)}</script><p>F-measure是precision和recall的加权调和平均；当参数a=1时，就是最常见的F1，</p>
-<script type="math/tex; mode=display">
-F1=\frac{2*P*R}{P+R}</script></li>
-<li><p>其他评价指标</p>
-<ul>
-<li>计算速度：分类器训练和预测需要的时间</li>
-<li>鲁棒性：处理缺失值和异常值的能力</li>
-<li>可扩展性：处理大数据集的能力</li>
-<li>可解释性：分类器预测标准的可理解性（决策树产生的规则就是易理解的，而神经网络的一堆参数就不好理解，因此被人们视为黑盒子）</li>
-</ul>
-</li>
+<li>条件概率公式<script type="math/tex; mode=display">
+P(A|B)=\frac{P(A,B)}{P(B)}</script></li>
 </ol>
 <ol>
-<li><p>二、什么是ROC曲线？</p>
-</li>
+<li>贝叶斯公式<script type="math/tex; mode=display">
+P(A,B)=P(A|B)\cdot P(B)=P(B|A)\cdot P(A)</script>由此得到贝叶斯公式的常规形式：<script type="math/tex; mode=display">
+P(A|B)=\frac{P(B|A)\cdot P(A)}{P(B)}</script></li>
 </ol>
-<p>ROC（Receiver Operating Characteristic）曲线是以真正率（TP_rate）和假正率（FP_rate）为轴的曲线；ROC曲线下面的面积叫做AUC。</p>
-<p><img src="https://img-blog.csdn.net/20170612145321904" alt="这里写图片描述"></p>
 <ol>
-<li>曲线与FP_rate轴围成的面积（AUC）越大，说明性能越好。</li>
-<li>虽然ROC曲线相较于Precision和Recall等衡量指标更加合理，但是其在高不平衡数据条件下的表现仍过于理想，PR曲线可能比ROC更实用。</li>
+<li><p>全概率公式</p>
+<p>若事件B1, B2, Bn是样本空间的一个划分，则：</p>
+<script type="math/tex; mode=display">
+P(A)=\sum_{i=1}^nP(A, B_i)</script><p>由条件概率公式，可得：</p>
+<script type="math/tex; mode=display">
+P(A)=\sum_{i=1}^nP(A|B_i)P(B_i)</script><p><img src="https://pic4.zhimg.com/80/v2-0b3f91a02c3da5a2d028d742c96bb6fb_720w.jpg" alt="img"></p>
+</li>
 </ol>
-<p>三、A/B测试？</p>
+<p>全概率公式的意义在于，当某件事的概率难以求得时，可转化为在一些列条件下发生的概率的和。</p>
+<p><strong>二、朴素贝叶斯为什么“朴素naive”？</strong></p>
+<p>贝叶斯分类器适合多分类任务，适合增量式训练，对于大规模数据，计算复杂度较低。缺点是，对输入数据比较敏感，而且贝叶斯分类器是假设特征之间相互独立，而往往实际例子中特征之间都有相互的联系。这是朴素贝叶斯被称为“朴素”的原因。</p>
+<p><strong>三、朴素贝叶斯有没有超参数可以调？</strong></p>
+<p>NB没有超参数可以调，它不需要调参，NB是根据训练集进行分类，分类出来的结果就确定了。拉普拉斯估计器不是NB的参数，不能通过拉普拉斯估计器来对NB调参。</p>
+<p><strong>四、朴素贝叶斯的工作流程是怎样的？</strong></p>
 <ol>
-<li><p>什么是A/B测试？</p>
-<p>是验证新模块、新功能、新产品是否有效，新算法、新模型的效果是否有提升，新设计是否受到用户欢迎的主要测试方法。</p>
+<li><p>准备阶段</p>
+<p>确定特征属性，并对每个特征属性进行适当划分，去除高度相关性的属性；然后由人工对一部分待分类项进行分类，形成训练样本集合。这一阶段的输入是所有待分类数据，输出是特征属性和训练样本。</p>
 </li>
-<li><p>为什么要进行线上A/B测试？</p>
-<ul>
-<li>离线评估无法完全消除模型过拟合的影响，得出的离线评估结果无法完全替代线上评估结果。</li>
-<li>离线评估无法完全还原线上的工程环境。离线评估的结果是理想工程环境下的结果。</li>
-<li>线上系统的某些商业指标在离线评估中无法计算，离线评估一般是针对模型本身进行评估，而与模型相关的其他指标，如商业指标，往往无法直接获得。</li>
-</ul>
+<li><p>分类器训练阶段</p>
+<p>这一阶段的任务是生成分类器，主要工作是计算每个类别在训练样本中的出现频率以及每个特征属性划分对每个类别的条件概率估计，并将结果记录。其输入是特征属性和训练样本，输出是分类器。</p>
 </li>
-<li><p>在A/B测试中如何进行流量分割？</p>
-<ul>
-<li>实验对用户体验感知影响很小，通常可以较大流量测试，如实验组：对照组按1:1的流量分配；</li>
-<li>实验稳定性不高，如新功能的上线，策略变动较大等，先小流量测试，后续依据表现放量；</li>
-<li>依据实验的收益预期来判定：如希望获得很大的收益，在确定较大负面影响下，可以大流量上线；</li>
-</ul>
+<li><p>应用阶段</p>
+<p>使用分类器对待分类项进行分类，其输入是分类器和待分类项，输出是待分类项与类别的映射关系。</p>
 </li>
 </ol>
-<p><a href="https://www.6aiq.com/article/1606260721974" target="_blank" rel="noopener">https://www.6aiq.com/article/1606260721974</a></p>
-<p><a href="https://zhuanlan.zhihu.com/p/430075273" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/430075273</a></p>
-<p><a href="https://cloud.tencent.com/developer/article/1496302" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1496302</a></p>
+<p><strong>五、朴素贝叶斯对异常值敏不敏感？</strong></p>
+<p>朴素贝叶斯对异常值不敏感。所以在进行数据处理时，我们可以不去除异常值，因为保留异常值可以保持朴素贝叶斯算法的整体精度，而去除异常值则可能在进行预测的过程中由于失去部分异常值导致模型的泛化能力下降。</p>
+<p>【摘自】<a href="https://blog.csdn.net/zhaodedong/article/details/97460050" target="_blank" rel="noopener">https://blog.csdn.net/zhaodedong/article/details/97460050</a></p>
 
     </div>
 
@@ -331,12 +253,12 @@ F1=\frac{2*P*R}{P+R}</script></li>
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2022/01/16/Day02-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B52/" rel="prev" title="Day02-机器学习基本概念2">
-      <i class="fa fa-chevron-left"></i> Day02-机器学习基本概念2
+    <a href="/2022/01/16/Day03-%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87/" rel="prev" title="Day03-评价指标">
+      <i class="fa fa-chevron-left"></i> Day03-评价指标
     </a></div>
       <div class="post-nav-item">
-    <a href="/2022/01/16/Day05-%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF/" rel="next" title="Day05-朴素贝叶斯">
-      Day05-朴素贝叶斯 <i class="fa fa-chevron-right"></i>
+    <a href="/2022/01/16/Day04-%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/" rel="next" title="Day04-线性回归逻辑回归">
+      Day04-线性回归逻辑回归 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
